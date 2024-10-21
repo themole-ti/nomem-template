@@ -57,16 +57,38 @@ void show_intro()
 	{
 		unsigned int result = read_joyst(JOYST_1);
 		if (result & JOYST_FIRE)
+			wait = 0;
+
+		if (result & JOYST_UP)
 		{
 			num_players = 1;
-			wait = 0;
+			vdpchar(VDP_NT + 648, 50);
+			vdpchar(VDP_NT + 710, 0);
+		}
+
+		if (result & JOYST_DOWN)
+		{
+			num_players = 2;
+			vdpchar(VDP_NT + 648, 0);
+			vdpchar(VDP_NT + 710, 50);
 		}
 
 		result = read_joyst(JOYST_2);
 		if (result & JOYST_FIRE)
+			wait = 0;
+
+		if (result & JOYST_UP)
+		{
+			num_players = 1;
+			vdpchar(VDP_NT + 648, 50);
+			vdpchar(VDP_NT + 710, 0);
+		}
+
+		if (result & JOYST_DOWN)
 		{
 			num_players = 2;
-			wait = 0;
+			vdpchar(VDP_NT + 648, 0);
+			vdpchar(VDP_NT + 710, 50);
 		}
 	}
 }
@@ -91,7 +113,7 @@ void init_playfield()
 
 	// Print 'net'
 	for (int i = 0; i < 24; i++)
-		vdpchar((32*i) + 16, 88);
+		vdpchar((32*i) + 16, 96);
 }
 
 void put_sprite(int spnum, int patt, int x, int y, int color)
@@ -132,6 +154,8 @@ int main(int argc, char *argv[])
 
 		unsigned char p1_score = 0;
 		unsigned char p2_score = 0;
+		ball_dx = BALL_SPEED << 4;
+		ball_dy = BALL_SPEED << 4;
 		init_playfield();
 
 		unsigned int result;
@@ -156,10 +180,10 @@ int main(int argc, char *argv[])
 						if (ball_x > 3584)
 							thinking = 0;
 						else
-							thinking = 10;
-						if (ball_y > (p2_y + 224))
+							thinking = 8;
+						if (ball_y > (p2_y + 192))
 							ai_speed =  PADDLE_SPEED;
-						if (ball_y < p2_y + 32)
+						if (ball_y < p2_y)
 							ai_speed =  -PADDLE_SPEED;
 					}
 					else
