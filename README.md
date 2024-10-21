@@ -13,7 +13,7 @@ What can I say, it's Pong... It supports 1 and 2 player games, which can be sele
 ## Making your own games
 Simply remove main.c and graphics.h in the src/ and include/ directories respectively and replace them with your own game code. 
 
-I've included two headers that are heavily based on the excellent libti99 by Tursi (https://github.com/tursilion) but have been tweaked to follow the conventions of STB-style single header libraries. That is to say, to include the implementation in your binary, you have to make sure that you define the VDP_IMPLEMENTATION and INPUT_IMPLEMENTATION macros in at one (and exactly one) of your .c files before including the headers. Check out main.c for an example. 
+I've included two headers that are heavily based on the excellent libti99 by Tursi (https://github.com/tursilion) but have been tweaked to follow the conventions of STB-style single header libraries. That is to say, to include the implementation in your binary, you have to make sure that you define the VDP_IMPLEMENTATION and INPUT_IMPLEMENTATION macros in one (and exactly one) of your .c files before including the headers. Check out main.c for an example. 
 The headers provide basic functions for showing stuff on the screen and reading the keyboard/joysticks. 
 I might add a similar header for sound later on.
 
