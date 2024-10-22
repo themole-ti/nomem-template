@@ -179,14 +179,15 @@ int main(int argc, char *argv[])
 			if (num_players == 1)
 			{
 				// Play against AI
-				if ((ball_dx > 0) && (ball_x > 1024))
+				if ((ball_dx > 0) && (ball_x > 512))
 				{
 					if (!thinking)
 					{
-						if (ball_x > 3584)
-							thinking = 0;
+						if (ball_x > 3284)
+							thinking = 1;
 						else
 							thinking = 8;
+
 						if (ball_y > (p2_y + 192))
 							ai_speed =  PADDLE_SPEED;
 						if (ball_y < p2_y)
