@@ -5,6 +5,7 @@
 #include "input.h"
 
 #include "graphics.h"
+#include "dy_table.h"
 
 int num_players = 1;
 
@@ -141,6 +142,11 @@ int p1_y     = 96 << 4;
 #define p2_x   (252 << 4) 
 int p2_y     = 96 << 4;
 
+int calculate_dy(int paddle_y)
+{
+	return dy_table[(ball_y + 64) - paddle_y] >> 2;
+}
+
 int main(int argc, char *argv[])
 {
 	unsigned int thinking = 0;
@@ -224,7 +230,7 @@ int main(int argc, char *argv[])
 						ball_dx = -ball_dx - BALL_ACCEL;
 					else
 						ball_dx = -ball_dx + BALL_ACCEL;
-					ball_dy += BALL_ACCEL;
+					ball_dy = calculate_dy(p1_y);
 
 					// Make sure we don't fly past the paddle
 					ball_x = 128;
@@ -239,6 +245,11 @@ int main(int argc, char *argv[])
 						ball_dx = (BALL_SPEED << 4);
 					ball_x = 2048;
 					ball_y = 1536;
+
+					if (ball_dy > 22)
+						ball_dy = 22;
+					if (ball_dy < -22)
+						ball_dy = -22;
 				}
 			}
 
@@ -252,7 +263,7 @@ int main(int argc, char *argv[])
 						ball_dx = -ball_dx + BALL_ACCEL;
 					else
 						ball_dx = -ball_dx - BALL_ACCEL;
-					ball_dy += BALL_ACCEL;
+					ball_dy = calculate_dy(p2_y);
 
 					// Make sure we don't fly past the paddle
 					ball_x = 3960;
@@ -267,6 +278,11 @@ int main(int argc, char *argv[])
 						ball_dx = (BALL_SPEED << 4);
 					ball_x = 2048;
 					ball_y = 1536;
+
+					if (ball_dy > 22)
+						ball_dy = 22;
+					if (ball_dy < -22)
+						ball_dy = -22;
 				}
 			}
 
